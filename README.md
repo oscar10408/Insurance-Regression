@@ -24,7 +24,8 @@ This project aims to use data analysis to construct predictive models of health 
   - **Region** has little to no relation with expenses.
   - **Sex** does not significantly affect the model and was removed during analysis.
 - No missing values in the dataset.
-  
+- 
+
 ---
 
 ## **Data Processing and Transformation**
@@ -40,6 +41,15 @@ This project aims to use data analysis to construct predictive models of health 
    - No significant variation in expenses between regions or genders.
    - **Number of children** tends to decrease expenses, though data is sparse for large families.
 
+
+### Age vs Number of Children EDA
+![Age vs Number of Children EDA](images/age_childrens_EDA.png)
+
+### Region, Sex, Smoking EDA
+![Region, Sex, Smoking EDA](images/region_sex_smoking_EDA.png)
+
+### BMI vs Smoking EDA
+![BMI vs Smoking EDA](images/BMI_smoking_EDA.png)  
 ---
 
 ## **Regression Models**
@@ -50,7 +60,10 @@ This project aims to use data analysis to construct predictive models of health 
    - Established a full model and used stepwise selection (using `ols_step_both_p` in `olsrr`).
    - Final variables: **Age**, **BMI**, **Children**, and **Smoker**.
    - **Region** was removed (p-value = 0.09, failing to reject the null hypothesis).
-   
+  
+### Adjusted R² and CP Variable Selection
+![Adjusted R² and CP Variable Selection](images/adj2_CP_variable_selection.png)
+
 2. **Model Verification**:
    - No multicollinearity issues (VIF < 2).
    - Model had an **adjusted R² of 0.76**.
@@ -60,7 +73,19 @@ This project aims to use data analysis to construct predictive models of health 
        `Expenses = -12105.5 + 257.8(Age) + 321.9(BMI) + 473.7(Children) + 23810.3(Smoker_Yes)`
      - After Transformation:  
        `log(Expenses) = 6.983 + 0.03478(Age) + 0.0106(BMI) + 0.1012(Children) + 1.54321(Smoker_Yes)`
-  
+
+### VIF and ANOVA - Simple Regression
+![VIF and ANOVA - Simple Regression](images/VIF_ANOVA_simple_regression.png)
+
+### BoxCox Transformation - Multiple Regression
+![BoxCox Transformation - Multiple Regression](images/BoxCox_Transformation_simple_regression.png)
+
+### Residual Analysis - Multiple Regression
+![Residual Analysis - Multiple Regression](images/Residual_analysis_simple_regression.png)
+
+### Added Variable Plot
+![Added Variable Plot](images/added_variable_plot.png)
+
 3. **Cross-Validation**:  
    - **R² = 0.76** from Leave-One-Out Cross Validation (LOOCV).
 
@@ -73,6 +98,12 @@ This project aims to use data analysis to construct predictive models of health 
 2. **Transformation**:
    - Used **Box-Cox** transformation to optimize lambda = 0.25.
    - Improved residuals but residual vs. fitted plot showed structural issues.
+
+### Residual Analysis Before Transformation
+![Residual Analysis Before Transformation](images/Residual_Analysis_Before_Transformation.png)
+
+### Residual Analysis After Transformation
+![Residual Analysis After Transformation](images/Residual_Analysis_After_Transformation.png)
 
 3. **Performance**:
    - **R² = 0.84** with LOOCV.
@@ -89,6 +120,9 @@ This project aims to use data analysis to construct predictive models of health 
    - **R² = 0.84** on the test set.
    - Random Forest achieved close agreement between predicted and actual values, showing robust performance.
 
+
+### Predicted vs Ground Truth (Random Forest)
+![Predicted vs Ground Truth (Random Forest)](images/Predicted_GroundTruth_random_forest.png)
 ---
 
 ## **Conclusion**
@@ -103,6 +137,13 @@ This project aims to use data analysis to construct predictive models of health 
 - **Multiple Regression** offers a simplified model with decent prediction accuracy but has limitations in residual analysis.
 - **Polynomial Regression** provides better predictive accuracy and R², though still exhibits some residual issues.
 - **Random Forest** demonstrates the strongest predictive performance, particularly under Big Data scenarios.
+
+
+### Results on Full Dataset
+![Results on Full Dataset](images/Result_Full_Dataset.png)
+
+### Results on Small Dataset
+![Results on Small Dataset](images/Result_Small_Dataset.png)
 
 ### **Final Thoughts**:
 - **Smoker**, **BMI**, and **Age** are the most influential factors in determining health insurance premiums.
